@@ -26,6 +26,27 @@ const products: Product[] = [
   },
 ];
 
+const customers: Customer[] = [
+  {
+    '_id': '1', 
+    'name': 'Mauricio Medeiros',
+    'email': 'mauricio@medeiros.com',
+    'favoriteProducts': ['877e290f-a333-2d64-1be6-bed0ee3bea57', 'de8e9b36-f9cf-ce4e-8e4b-465fdc821bc9']
+  },
+  {
+    '_id': '2', 
+    'name': 'Joe',
+    'email': 'joe@medeiros.com',
+    'favoriteProducts': []
+  },
+  {
+    '_id': '3', 
+    'name': 'Peter',
+    'email': 'peter@medeiros.com',
+    'favoriteProducts': []
+  },
+]
+
 export class FavoriteProductService implements IFavoriteProduct{
   constructor(){}
 
@@ -33,11 +54,18 @@ export class FavoriteProductService implements IFavoriteProduct{
   public toAdd(idCustomer: string, idProduct:string) {
     // find product 
     const product = products.find(p => p.id === idProduct);
-    console.log(product);
     if(!product) {
       throw new Error('product not found');
     }
-    return null;
+
+    const customer = customers.find(c => c._id === idCustomer);
+    const isFavored = customer?.favoriteProducts.find(f => f === idProduct)
+    if(isFavored) {
+      throw new Error('customer already has this favorite product');
+    }
+    customer?.favoriteProducts.push(idProduct);
+
+    return customer;
   }
 
 }
