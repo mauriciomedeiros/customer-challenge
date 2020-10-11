@@ -50,7 +50,6 @@ const customers: Customer[] = [
 export class FavoriteProductService implements IFavoriteProduct{
   constructor(){}
 
-
   public toAdd(idCustomer: string, idProduct:string) {
     // find product 
     const product = products.find(p => p.id === idProduct);
@@ -59,6 +58,10 @@ export class FavoriteProductService implements IFavoriteProduct{
     }
 
     const customer = customers.find(c => c._id === idCustomer);
+    if(!customer) {
+      throw new Error('customer not found');
+    }
+
     const isFavored = customer?.favoriteProducts.find(f => f === idProduct)
     if(isFavored) {
       throw new Error('customer already has this favorite product');
@@ -67,6 +70,17 @@ export class FavoriteProductService implements IFavoriteProduct{
 
     return customer;
   }
+
+  public remove(idCustomer: string, idProduct: string) {
+    const customer = customers.find(c => c._id === idCustomer);
+    if(!customer) {
+      throw new Error('customer not found');
+    }
+    customer?.favoriteProducts.splice(customer?.favoriteProducts.indexOf(idProduct), 1);
+    console.log(customer.favoriteProducts.length);
+    return customer;
+  }
+
 
 }
 
