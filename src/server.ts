@@ -1,7 +1,9 @@
+import './util/module-alias';
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import { Database } from './config/database';
+import { Database } from '@src/config/database';
+import { Routes } from '@src/routes/routes';
 
 export class Server {
   public app?: express.Express;
@@ -23,6 +25,7 @@ export class Server {
     this.app = express();
     this.app.use(bodyParser.json());
     this.app.use(cors({origin: '*'}))
+    this.app.use(Routes.initialize());
   }
 
   private async initDatabase():Promise<void> {
