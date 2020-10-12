@@ -1,9 +1,8 @@
 import { FavoriteProductService } from '@src/services/favorite-product-service';
-import IFavoriteProduct from '@src/services/interfaces/favorite-product';
 import { Customer } from '@src/entities/customer';
 
 describe('Favorite Product Service', () => {
-  const service: IFavoriteProduct = new FavoriteProductService();
+  const service = new FavoriteProductService();
   describe('Add new favorite product', () => {
     it('Should return a ERROR - Product not found', () => {
       try {

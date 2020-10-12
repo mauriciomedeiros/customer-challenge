@@ -1,9 +1,8 @@
 import { CustomerService } from '@src/services/customer-service';
 import { Customer } from '@src/entities/customer'
-import ICustomer from '@src/services/interfaces/customer';
 
 describe('Customer Service', () => {
-  const service:ICustomer = new CustomerService();
+  const service = new CustomerService();
   describe('Get customer by ID', () => {
     it('should return a successfull customer for ID', () => {
       const customer = service.getById("1");
