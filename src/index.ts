@@ -1,10 +1,11 @@
-import './util/module-alias';
+import { Server } from './server';
 
-console.log('running....');
-
-export class Index {
-
-  public soma(a:number, b:number): number{
-    return a + b;
+(async (): Promise<void> => {
+  try {
+    const server = new Server(5000);
+    await server.init();
+    await server.start();
+  } catch (error) {
+    console.log(`[Initialize] - Error to initialize API: ${error}`);
   }
-}
+})();
