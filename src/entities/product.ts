@@ -1,8 +1,8 @@
 export interface Product {
-  id?: string,
+  id: string,
   title: string,
   price: number,
   image: string,
   brand: string,
-  reviewScore: number
+  reviewScore?: number
 }
