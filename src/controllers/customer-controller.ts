@@ -6,7 +6,6 @@ export class CustomerController {
   public static async getByID(req: Request, res: Response): Promise<void>{
     try {
       const customer = await Customer.findOne({_id: req.params.id});
-      console.log(customer);
       if(!customer) {
         res.status(404).send({code: 404, message: 'client not found'})
       }
@@ -19,7 +18,7 @@ export class CustomerController {
 
   public static async create(req: Request, res: Response): Promise<void>{
     try {
-      const ifEmailRegisterd = Customer.findOne({email: req.body.email});
+      const ifEmailRegisterd = await Customer.findOne({email: req.body.email});
       if(ifEmailRegisterd) {
         res.status(400).send({code: 400, message: 'Email must be unique'})
       }
