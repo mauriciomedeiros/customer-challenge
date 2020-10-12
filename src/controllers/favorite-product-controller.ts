@@ -53,8 +53,8 @@ export class FavoriteProductController {
         res.status(404).send({code: 404, message: `customer doesn't have any favorite products`})
       }
       const idProduct = req.params.idProduct as string;
-      // finalizar
-      // customer?.favoriteProducts?.splice(customer?.favoriteProducts.indexOf(idProduct), 1);
+      await favoriteProductService.removeFavorite(customer as Customer, idProduct)
+      res.status(204).send();
     } catch (error) {
       res.status(500).send({ code: 500, message: 'oops something went wrong please try again' })
     }
