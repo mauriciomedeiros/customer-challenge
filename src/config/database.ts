@@ -4,16 +4,21 @@ import mongoose, { Mongoose } from "mongoose";
 export class Database {
   
   public static async connect(): Promise<Mongoose> {
-    const host = process.env.MONGO_HOST;
-    const port = process.env.MONGO_PORT;
-    const URL = `mongodb://${host}:${port}/customer-challenge`
-    return await mongoose.connect(URL, {
-      useCreateIndex: true,
-      useFindAndModify: true,
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      poolSize: 10
-    });
+    try {
+      const host = process.env.MONGO_HOST;
+      const port = process.env.MONGO_PORT;
+      const URL = process.env.DATABASE_URI as string;
+      return await mongoose.connect(URL, {
+        useCreateIndex: true,
+        useFindAndModify: true,
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        poolSize: 10
+      });
+    } catch (error) {
+      console.log('[Database] - Error to connect database');
+      throw error
+    }
   }
 
   public static close(): Promise<void> {

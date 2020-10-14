@@ -2,9 +2,7 @@ version: "3.1"
 
 services:
   customer-challenge:
-    build: ./customer-challenge
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
+    build: ./
     expose:
       - "5000"
     ports:  
@@ -30,11 +28,11 @@ services:
        - ./mongodb/db
 
   redis:
-    iamge: redis:8.1
+    image: redis:6.0.8
     networks:
       - challenge
     ports:
-      6379:6379
+      - "6379:6379"
 
 networks:
   challenge:
