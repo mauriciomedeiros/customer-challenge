@@ -10,6 +10,11 @@ export class UserController {
 
   public static async create(req: Request, res: Response): Promise<void>{
     try {
+      const ifEmailRegisterd = await userRepository.findByEmail(req.body.email);
+      console.log(ifEmailRegisterd);
+      if(ifEmailRegisterd) {
+        res.status(400).send({code: 400, message: 'email already registered, email must be unique'})
+      }
       const user = new User(req.body);
       const newUser = await userRepository.save(user);
       res.status(201).send(newUser);
