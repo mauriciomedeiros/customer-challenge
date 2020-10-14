@@ -3,6 +3,12 @@ import { User } from "@src/entities/user";
 import { TokenService } from "@src/services/use-cases/token-service";
 import { IUser } from "@src/repositories/interfaces/user";
 import { UserRepository } from "@src/repositories/user-repository";
+import logger from "@src/config/logger";
+
+// import { Logger } from "tslog";
+// const log: Logger = new Logger({ name: "myLogger" });
+
+
 
 const userRepository:IUser = new UserRepository();
 
@@ -11,7 +17,6 @@ export class UserController {
   public static async create(req: Request, res: Response): Promise<void>{
     try {
       const ifEmailRegisterd = await userRepository.findByEmail(req.body.email);
-      console.log(ifEmailRegisterd);
       if(ifEmailRegisterd) {
         res.status(400).send({code: 400, message: 'email already registered, email must be unique'})
       }
@@ -19,6 +24,7 @@ export class UserController {
       const newUser = await userRepository.save(user);
       res.status(201).send(newUser);
     } catch (error) {
+      logger.error('Erro for create new user:', error)
       res.status(500).send({code: 500, message: 'oops something went wrong please try again'})
     }
   }
@@ -36,7 +42,7 @@ export class UserController {
       const token = TokenService.code(userJson);
       res.status(200).send({email: user?.email, token})
     } catch (error) {
-      console.log(error);
+      logger.error('Error trying to log in:', error)
       res.status(500).send({code: 500, message: 'oops something went wrong please try again'})
     }
   }
