@@ -1,0 +1,41 @@
+version: "3.1"
+
+services:
+  customer-challenge:
+    build: ./customer-challenge
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    expose:
+      - "5000"
+    ports:  
+      - "5000:5000"
+    depends_on:
+      - mongodb
+      - redis
+    environment:
+      - DATABASE_URI=mongodb://mongodb:27017/customer-challenge
+    networks:
+      - challenge
+
+  mongodb:
+    image: mongo:latest
+    networks:
+      - challenge
+    environment:
+      - MONGO_INITDB_DATABASE=customer-challenge
+    command: mongod --smallfiles --quiet --logpath=/dev/null
+    ports:
+      - "27017:27017"
+    volumes:
+       - ./mongodb/db
+
+  redis:
+    iamge: redis:8.1
+    networks:
+      - challenge
+    ports:
+      6379:6379
+
+networks:
+  challenge:
+    driver: bridge
