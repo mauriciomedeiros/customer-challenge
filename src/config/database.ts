@@ -5,8 +5,6 @@ export class Database {
   
   public static async connect(): Promise<Mongoose> {
     try {
-      const host = process.env.MONGO_HOST;
-      const port = process.env.MONGO_PORT;
       const URL = process.env.DATABASE_URI as string;
       return await mongoose.connect(URL, {
         useCreateIndex: true,

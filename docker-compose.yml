@@ -11,6 +11,7 @@ services:
       - mongodb
       - redis
     environment:
+      - NODE_ENV=development
       - DATABASE_URI=mongodb://mongodb:27017/customer-challenge
     networks:
       - challenge
