@@ -3,9 +3,11 @@ import { FavoriteProductService } from "@src/services/use-cases/favorite-product
 import { ProductIntegration } from "@src/services/integration/product-integration";
 import { Customer } from "@src/entities/customer";
 import { Product } from "@src/entities/product";
+import { IProduct } from "@src/services/integration/interfaces/product";
 
 const favoriteProductService = new FavoriteProductService();
-const productService = new ProductIntegration();
+const productService:IProduct = new ProductIntegration();
+
 export class FavoriteProductController {
 
   public static async getByCustomer(req: Request, res: Response): Promise<void> {

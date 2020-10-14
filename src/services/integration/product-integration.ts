@@ -1,8 +1,8 @@
 import { Product } from "@src/entities/product";
 import { Request } from "@src/util/request";
+import { IProduct } from "@src/services/integration/interfaces/product";
 
-
-export class ProductIntegration {
+export class ProductIntegration implements IProduct{
   constructor(protected request = new Request()){
   }
   public async getProductById(idProduct: string): Promise<Product> {
