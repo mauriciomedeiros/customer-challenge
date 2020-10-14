@@ -38,10 +38,6 @@ export class Server {
 
   private initEnv():void {
     let path = __dirname + '/config/envs/.env';
-
-    if(process.env.NODE_ENV === 'development')
-      path =  __dirname + '/config/envs/.env.development';
-
     dotenv.config({path: path});
   }
 

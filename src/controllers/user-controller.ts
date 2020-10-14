@@ -27,6 +27,7 @@ export class UserController {
       const token = TokenService.code(user?.toJSON());
       res.status(200).send({email: user?.email, token})
     } catch (error) {
+      console.log(error);
       res.status(500).send({code: 500, message: 'oops something went wrong please try again'})
     }
   }
