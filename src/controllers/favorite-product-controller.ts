@@ -4,15 +4,18 @@ import { ProductIntegration } from "@src/services/integration/product-integratio
 import { Customer } from "@src/entities/customer";
 import { Product } from "@src/entities/product";
 import { IProduct } from "@src/services/integration/interfaces/product";
+import { ICustomer } from "@src/repositories/interfaces/customer";
+import { CustomerRepository } from "@src/repositories/customer-repository";
 
 const favoriteProductService = new FavoriteProductService();
 const productService:IProduct = new ProductIntegration();
+const customerRepository:ICustomer = new CustomerRepository();
 
 export class FavoriteProductController {
 
   public static async getByCustomer(req: Request, res: Response): Promise<void> {
     try {
-      const customer = await Customer.findOne({_id: req.params.id}) as Customer;
+      const customer = await await customerRepository.findById(req.params.id) as Customer;
       if(!customer) {
         res.status(404).send({code: 404, message: 'client not found'})
       }
@@ -30,7 +33,7 @@ export class FavoriteProductController {
         res.status(404).send({code: 404, message: 'product not found'});
       }
 
-      const customer = await Customer.findOne({_id: req.params.id});
+      const customer = await customerRepository.findById(req.params.id);
       if(!customer) {
         res.status(404).send({code: 404, message: 'customer not found'})
       }
@@ -47,7 +50,7 @@ export class FavoriteProductController {
 
   public static async remove(req: Request, res: Response): Promise<void> {
     try {
-      const customer = await Customer.findOne({_id: req.params.id});
+      const customer = await await customerRepository.findById(req.params.id);
       if(!customer) {
         res.status(404).send({code: 404, message: 'customer not found'})
       }

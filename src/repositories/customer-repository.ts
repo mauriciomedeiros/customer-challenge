@@ -1,4 +1,5 @@
 import { Customer } from "@src/entities/customer";
+import { Product } from "@src/entities/product";
 import { ICustomer } from "@src/repositories/interfaces/customer";
 
 export class CustomerRepository implements ICustomer {
@@ -50,4 +51,14 @@ export class CustomerRepository implements ICustomer {
     } 
   }
 
+  public async updateFavoriteProducts(idCustomer: string, products: Product[]): Promise<Customer> {
+    try {
+      const filter = {_id: idCustomer};
+      const data = {favoriteProducts: products}
+      const customer = await Customer.findOneAndUpdate(filter, data);
+      return customer as Customer;
+    } catch (error) {
+      throw new Error("Method not implemented.");
+    }
+  }
 }
