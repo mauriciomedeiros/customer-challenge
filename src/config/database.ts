@@ -1,16 +1,19 @@
 import mongoose, { Mongoose } from "mongoose";
 
-export class Database {
 
+export class Database {
+  
   public static async connect(): Promise<Mongoose> {
-    const URL = 'mongodb://localhost:27017/customer'
+    const host = process.env.MONGO_HOST;
+    const port = process.env.MONGO_PORT;
+    const URL = `mongodb://${host}:${port}/customer`
     return await mongoose.connect(URL, {
       useCreateIndex: true,
       useFindAndModify: true,
       useNewUrlParser: true,
       useUnifiedTopology: true,
       poolSize: 10
-    }).then();
+    });
   }
 
   public static close(): Promise<void> {

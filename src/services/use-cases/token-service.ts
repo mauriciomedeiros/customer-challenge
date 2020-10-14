@@ -2,15 +2,17 @@ import jwt from 'jsonwebtoken';
 import { User } from '@src/entities/user';
 
 export class TokenService {
-
   public static code(payload: User): string {
+    const cryptToken = process.env.TOKEN_CRYPT as string;
     const options = {
-      expiresIn: '100000',
+      expiresIn: process.env.EXPIRES_IN,
     }
-    return jwt.sign(payload, 'crypttoken', options);
+
+    return jwt.sign(payload, cryptToken, options);
   }
 
   public static decode(token: string): User {
-    return jwt.verify(token, 'crypttoken') as User
+    const cryptToken = process.env.TOKEN_CRYPT as string;
+    return jwt.verify(token, cryptToken) as User
   }
 }

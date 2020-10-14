@@ -4,6 +4,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import { Database } from '@src/config/database';
 import { Routes } from '@src/routes/routes';
+import * as dotenv from 'dotenv';
 
 export class Server {
   public app?: express.Express;
@@ -11,6 +12,7 @@ export class Server {
   constructor(private port = 5000){}
 
   public async init(): Promise<void> {
+    this.initEnv();
     this.initExpress();
     await this.initDatabase();
   }
@@ -29,6 +31,13 @@ export class Server {
   }
 
   private async initDatabase():Promise<void> {
-    await Database.connect();
+    await Database.connect().then(()=> {
+      console.log('[Server] - Database started successfully')
+    });
   }
+
+  private initEnv():void {
+    dotenv.config({path: __dirname + '/config/envs/.env'});
+  }
+
 }

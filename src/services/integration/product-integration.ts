@@ -3,12 +3,12 @@ import { Request } from "@src/util/request";
 
 
 export class ProductIntegration {
-  readonly baseUrl = 'http://challenge-api.luizalabs.com/api/product/'
-  constructor(protected request = new Request()){}
-
+  constructor(protected request = new Request()){
+  }
   public async getProductById(idProduct: string): Promise<Product> {
+    const baseUrl = process.env.BASE_URL_LUIZALABS;
     try {
-      const url = `${this.baseUrl}${idProduct}/`;
+      const url = `${baseUrl}${idProduct}/`;
       console.log(url);
       const product = await this.request.get<Product>(url)
       return product.data;
