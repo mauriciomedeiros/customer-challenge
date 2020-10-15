@@ -6,6 +6,7 @@ import { Product } from "@src/entities/product";
 import { IProduct } from "@src/services/integration/interfaces/product";
 import { ICustomer } from "@src/repositories/interfaces/customer";
 import { CustomerRepository } from "@src/repositories/customer-repository";
+import logger from "@src/config/logger";
 
 const favoriteProductService = new FavoriteProductService();
 const productService:IProduct = new ProductIntegration();
@@ -22,6 +23,7 @@ export class FavoriteProductController {
 
       res.status(201).send(customer.favoriteProducts);
     } catch (error) {
+      logger.error('Error to find favorite products to customer', error);
       res.status(500).send({ code: 500, message: 'oops something went wrong please try again' })
     }
   }
@@ -41,10 +43,11 @@ export class FavoriteProductController {
       const favoriteProductCustomer =  await favoriteProductService.addFavorite(customer as Customer, product);
       res.status(201).send(favoriteProductCustomer);
     } catch (error) {
+      logger.error('Error to add favorite products to customer', error);
       if(error.message === 'productAlreadyFavorited') {
-        res.status(400).send({ code: 400, message: 'customer already has this favorite product' })
+        res.status(400).send({ code: 400, message: 'customer already has this favorite product' });
       }
-      res.status(500).send({ code: 500, message: 'oops something went wrong please try again' })
+      res.status(500).send({ code: 500, message: 'oops something went wrong please try again' });
     }
   }
 
@@ -55,13 +58,14 @@ export class FavoriteProductController {
         res.status(404).send({code: 404, message: 'customer not found'})
       }
       if(customer?.favoriteProducts?.length === 0) {
-        res.status(404).send({code: 404, message: `customer doesn't have any favorite products`})
+        res.status(404).send({code: 404, message: `customer doesn't have any favorite products`});
       }
       const idProduct = req.params.idProduct as string;
       await favoriteProductService.removeFavorite(customer as Customer, idProduct)
       res.status(204).send();
     } catch (error) {
-      res.status(500).send({ code: 500, message: 'oops something went wrong please try again' })
+      logger.error('Error to remove favorite products to customer', error);
+      res.status(500).send({ code: 500, message: 'oops something went wrong please try again' });
     }
   }
 }

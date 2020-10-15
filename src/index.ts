@@ -1,3 +1,4 @@
+import logger from './config/logger';
 import { Server } from './server';
 
 (async (): Promise<void> => {
@@ -6,6 +7,6 @@ import { Server } from './server';
     await server.init();
     await server.start();
   } catch (error) {
-    console.log(`[Initialize] - Error to initialize API: ${error}`);
+    logger.error('[Initialize] - Error to initialize API:', error);
   }
 })();

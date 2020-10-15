@@ -1,4 +1,5 @@
 import mongoose, { Mongoose } from "mongoose";
+import logger from "@src/config/logger";
 
 
 export class Database {
@@ -14,15 +15,14 @@ export class Database {
         poolSize: 10
       });
     } catch (error) {
-      console.log('[Database] - Error to connect database');
+      logger.error('[Database] - Error to connect database', error);
       throw error
     }
   }
 
   public static close(): Promise<void> {
     return mongoose.connection.close().then(() => {
-      console.log('[Database] - Database has been close connection successfuly')
+      logger.info('[Database] - Database has been close connection successfuly')
     })
   }
-
 }

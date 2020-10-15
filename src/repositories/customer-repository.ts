@@ -1,3 +1,4 @@
+import logger from "@src/config/logger";
 import { Customer } from "@src/entities/customer";
 import { Product } from "@src/entities/product";
 import { ICustomer } from "@src/repositories/interfaces/customer";
@@ -8,6 +9,7 @@ export class CustomerRepository implements ICustomer {
       const customer = await Customer.findOne({_id: id});
       return customer as Customer;
     } catch (error) {
+      logger.error(`Error to find customer ${id} by id in database`, error);
       throw new Error("Method not implemented.");
     }
   }
@@ -17,6 +19,7 @@ export class CustomerRepository implements ICustomer {
       const customer = await Customer.findOne({email: email});
       return customer as Customer;
     } catch (error) {
+      logger.error(`Error to find customer by email in database`, error);;
       throw new Error("Method not implemented.");
     }
   }
@@ -27,6 +30,7 @@ export class CustomerRepository implements ICustomer {
       const newCustomer = await model.save();
       return newCustomer as Customer;
     } catch (error) {
+      logger.error(`Error to save customer ${customer._id} in database`, error);
       throw new Error("Method not implemented.");
     }
   }
@@ -35,6 +39,7 @@ export class CustomerRepository implements ICustomer {
     try {
       await Customer.deleteOne({_id: id})
     } catch (error) {
+      logger.error(`Error to delete customer ${id} in database`, error);
       throw new Error("Method not implemented.");
     }
   }
@@ -47,6 +52,7 @@ export class CustomerRepository implements ICustomer {
       const newCustomer = await Customer.findOne({_id: id});
       return newCustomer as Customer;
     } catch (error) {
+      logger.error(`Error to update customer ${customer._id} in database`, error);
       throw new Error("Method not implemented.");
     } 
   }
@@ -58,6 +64,7 @@ export class CustomerRepository implements ICustomer {
       const customer = await Customer.findOneAndUpdate(filter, data);
       return customer as Customer;
     } catch (error) {
+      logger.error(`Error to update favorite product to customer ${idCustomer} in database`, error);
       throw new Error("Method not implemented.");
     }
   }

@@ -5,10 +5,6 @@ import { IUser } from "@src/repositories/interfaces/user";
 import { UserRepository } from "@src/repositories/user-repository";
 import logger from "@src/config/logger";
 
-// import { Logger } from "tslog";
-// const log: Logger = new Logger({ name: "myLogger" });
-
-
 
 const userRepository:IUser = new UserRepository();
 
@@ -24,7 +20,7 @@ export class UserController {
       const newUser = await userRepository.save(user);
       res.status(201).send(newUser);
     } catch (error) {
-      logger.error('Erro for create new user:', error)
+      logger.error('Error to create new user:', error)
       res.status(500).send({code: 500, message: 'oops something went wrong please try again'})
     }
   }
@@ -42,7 +38,7 @@ export class UserController {
       const token = TokenService.code(userJson);
       res.status(200).send({email: user?.email, token})
     } catch (error) {
-      logger.error('Error trying to log in:', error)
+      logger.error('Error trying to login:', error)
       res.status(500).send({code: 500, message: 'oops something went wrong please try again'})
     }
   }

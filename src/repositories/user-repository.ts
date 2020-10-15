@@ -1,3 +1,4 @@
+import logger from "@src/config/logger";
 import { User } from "@src/entities/user";
 import { IUser } from "@src/repositories/interfaces/user";
 
@@ -8,6 +9,7 @@ export class UserRepository implements IUser {
       const newUser = await model.save();
       return newUser as User;
     } catch (error) {
+      logger.error(`Error to create user in database`, error);
       throw new Error("Method not implemented.");
     }
   }
@@ -17,6 +19,7 @@ export class UserRepository implements IUser {
       const user = await User.findOne({email: email});
       return user as User;
     } catch (error) {
+      logger.error(`Error to find user by email in database`, error);
       throw new Error("Method not implemented.");
     }
   }

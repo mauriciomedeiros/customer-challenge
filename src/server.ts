@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import { Database } from '@src/config/database';
 import { Routes } from '@src/routes/routes';
 import * as dotenv from 'dotenv';
+import logger from '@src/config/logger';
 
 export class Server {
   public app?: express.Express;
@@ -19,7 +20,7 @@ export class Server {
 
   public start():void {
     this.app?.listen(this.port, () => {
-      console.log(`[Server] - Server start on port: ${this.port} ...`);
+      logger.info(`[Server] - Server start on port: ${this.port} ...`);
     })
   }
 
@@ -32,7 +33,7 @@ export class Server {
 
   private async initDatabase():Promise<void> {
     await Database.connect().then(()=> {
-      console.log('[Server] - Database started successfully')
+      logger.info('[Server] - Database started successfully');
     });
   }
 

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Customer } from "@src/entities/customer";
 import { ICustomer } from "@src/repositories/interfaces/customer";
 import { CustomerRepository } from "@src/repositories/customer-repository";
+import logger from "@src/config/logger";
 
 const customerRepository:ICustomer = new CustomerRepository();
 
@@ -15,7 +16,7 @@ export class CustomerController {
       }
       res.status(200).send(customer);
     } catch (error) {
-      console.log(error);
+      logger.error('Error to search customer by ID', error)
       res.status(500).send({code: 500, message: 'oops something went wrong please try again'})
     }
   }
@@ -30,6 +31,7 @@ export class CustomerController {
       const newCustomer = await customerRepository.save(customer);
       res.status(201).send(newCustomer);
     } catch (error) {
+      logger.error('Error to create new customer', error)
       res.status(500).send({code: 500, message: 'oops something went wrong please try again'})
     }
   }
@@ -42,6 +44,7 @@ export class CustomerController {
       console.log(newCustomer);
       res.status(200).send(newCustomer);
     } catch (error) {
+      logger.error('Error to update a customer', error)
       res.status(500).send({code: 500, message: 'oops something went wrong please try again'})
     }
   }
@@ -51,6 +54,7 @@ export class CustomerController {
       await customerRepository.delete(req.params.id)
       res.status(204);
     } catch (error) {
+      logger.error('Error to delete customer', error)
       res.status(500).send({code: 500, message: 'oops something went wrong please try again'})
     }
   }
