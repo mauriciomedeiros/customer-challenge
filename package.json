@@ -8,6 +8,7 @@
     "start": "npm run build && node dist/src/index.js",
     "dev": "ts-node-dev 'src/index.ts'",
     "test": "jest",
+    "test:coverage": "jest --coverage",
     "lint": "eslint ./src ./test --ext .ts",
     "lint:fix": "eslint ./src ./test --ext .ts --fix"
   },
