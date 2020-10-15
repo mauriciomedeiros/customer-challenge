@@ -4,6 +4,6 @@ node_js:
   - 12
 install:
   - npm install
-  - npm build
+  - npm run build
 script:
-  - npm test:coverage
+  - npm run test:coverage
