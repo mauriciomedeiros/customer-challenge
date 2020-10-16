@@ -10,7 +10,7 @@ export class CustomerRepository implements ICustomer {
       return customer as Customer;
     } catch (error) {
       logger.error(`Error to find customer ${id} by id in database`, error);
-      throw new Error("Method not implemented.");
+      throw new Error(error.message);
     }
   }
 
@@ -20,7 +20,7 @@ export class CustomerRepository implements ICustomer {
       return customer as Customer;
     } catch (error) {
       logger.error(`Error to find customer by email in database`, error);;
-      throw new Error("Method not implemented.");
+      throw new Error(error.message);
     }
   }
 
@@ -31,7 +31,7 @@ export class CustomerRepository implements ICustomer {
       return newCustomer as Customer;
     } catch (error) {
       logger.error(`Error to save customer ${customer._id} in database`, error);
-      throw new Error("Method not implemented.");
+      throw new Error(error.message);
     }
   }
 
@@ -40,7 +40,7 @@ export class CustomerRepository implements ICustomer {
       await Customer.deleteOne({_id: id})
     } catch (error) {
       logger.error(`Error to delete customer ${id} in database`, error);
-      throw new Error("Method not implemented.");
+      throw new Error(error.message);
     }
   }
 
@@ -53,7 +53,7 @@ export class CustomerRepository implements ICustomer {
       return newCustomer as Customer;
     } catch (error) {
       logger.error(`Error to update customer ${customer._id} in database`, error);
-      throw new Error("Method not implemented.");
+      throw new Error(error.message);
     } 
   }
 
@@ -65,7 +65,7 @@ export class CustomerRepository implements ICustomer {
       return customer as Customer;
     } catch (error) {
       logger.error(`Error to update favorite product to customer ${idCustomer} in database`, error);
-      throw new Error("Method not implemented.");
+      throw new Error(error.message);
     }
   }
 }

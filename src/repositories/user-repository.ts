@@ -10,7 +10,7 @@ export class UserRepository implements IUser {
       return newUser as User;
     } catch (error) {
       logger.error(`Error to create user in database`, error);
-      throw new Error("Method not implemented.");
+      throw new Error(error.message);
     }
   }
 
@@ -20,7 +20,7 @@ export class UserRepository implements IUser {
       return user as User;
     } catch (error) {
       logger.error(`Error to find user by email in database`, error);
-      throw new Error("Method not implemented.");
+      throw new Error(error.message);
     }
   }
 }

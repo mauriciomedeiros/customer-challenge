@@ -27,7 +27,7 @@ export class ProductIntegration implements IProduct{
         throw new Error('productNotFund');
       }
       logger.error(`Error to integration with API producs,`, error);
-      throw error;
+      throw new Error('UnexpectedError');
     }
   }
 
