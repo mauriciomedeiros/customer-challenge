@@ -38,7 +38,7 @@ export class Server {
   }
 
   private initEnv(): void {
-    let path = __dirname + '/config/envs/.env';
+    const path = __dirname + '/config/envs/.env';
     dotenv.config({ path: path });
   }
 }

@@ -27,7 +27,7 @@ describe('Product Integration Service', () => {
       const mockRequest = jest.spyOn(requestMock, 'get');
       mockRequest.mockImplementation(
         () =>
-          new Promise((resolve, reject) => {
+          new Promise((resolve) => {
             resolve(resultRequestMock);
           })
       );
@@ -35,7 +35,7 @@ describe('Product Integration Service', () => {
       const mockCache = jest.spyOn(cacheMock, 'get');
       mockCache.mockImplementation(
         () =>
-          new Promise((resolve, reject) => {
+          new Promise((resolve) => {
             resolve(undefined);
           })
       );
@@ -67,7 +67,7 @@ describe('Product Integration Service', () => {
       const mockCache = jest.spyOn(cacheMock, 'get');
       mockCache.mockImplementation(
         () =>
-          new Promise((resolve, reject) => {
+          new Promise((resolve) => {
             resolve(resultCacheMock);
           })
       );
@@ -97,7 +97,7 @@ describe('Product Integration Service', () => {
       const mockRequest = jest.spyOn(requestMock, 'get');
       mockRequest.mockImplementation(
         () =>
-          new Promise((resolve, reject) => {
+          new Promise((any, reject) => {
             reject(resultRequestErrorMock);
           })
       );
@@ -105,7 +105,7 @@ describe('Product Integration Service', () => {
       const mockCache = jest.spyOn(cacheMock, 'get');
       mockCache.mockImplementation(
         () =>
-          new Promise((resolve, reject) => {
+          new Promise((resolve) => {
             resolve(undefined);
           })
       );
@@ -133,7 +133,7 @@ describe('Product Integration Service', () => {
       const mockRequest = jest.spyOn(requestMock, 'get');
       mockRequest.mockImplementation(
         () =>
-          new Promise((resolve, reject) => {
+          new Promise((any, reject) => {
             reject(resultRequestErrorMock);
           })
       );
@@ -141,7 +141,7 @@ describe('Product Integration Service', () => {
       const mockCache = jest.spyOn(cacheMock, 'get');
       mockCache.mockImplementation(
         () =>
-          new Promise((resolve, reject) => {
+          new Promise((resolve) => {
             resolve(undefined);
           })
       );

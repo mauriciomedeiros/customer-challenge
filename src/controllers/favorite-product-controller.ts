@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { FavoriteProductService } from '@src/services/use-cases/favorite-product-service';
 import { ProductIntegration } from '@src/services/integration/product-integration';
 import { Customer } from '@src/entities/customer';
-import { Product } from '@src/entities/product';
 import { IProduct } from '@src/services/integration/interfaces/product';
 import { ICustomer } from '@src/repositories/interfaces/customer';
 import { CustomerRepository } from '@src/repositories/customer-repository';

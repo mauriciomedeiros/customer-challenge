@@ -81,7 +81,7 @@ describe('Favorite Product Service', () => {
       );
       mockContactRepository.mockImplementation(
         () =>
-          new Promise((resolve, reject) => {
+          new Promise((resolve) => {
             resolve({
               _id: '5f83c2f81d4960669d02b9cd',
               favoriteProducts: [],
@@ -118,12 +118,12 @@ describe('Favorite Product Service', () => {
       );
       mockContactRepository.mockImplementation(
         () =>
-          new Promise((resolve, reject) => {
+          new Promise((any, reject) => {
             reject();
           })
       );
       try {
-        const products = await service.removeFavorite(
+        await service.removeFavorite(
           customerMock,
           productMock.id
         );
@@ -151,7 +151,7 @@ describe('Favorite Product Service', () => {
       );
       mockContactRepository.mockImplementation(
         () =>
-          new Promise((resolve, reject) => {
+          new Promise((resolve) => {
             resolve({
               _id: '5f83c2f81d4960669d02b9cd',
               favoriteProducts: [productMock],
@@ -184,12 +184,12 @@ describe('Favorite Product Service', () => {
       );
       mockContactRepository.mockImplementation(
         () =>
-          new Promise((resolve, reject) => {
+          new Promise((any, reject) => {
             reject();
           })
       );
       try {
-        const products = await service.addFavorite(customerMock, productMock);
+        await service.addFavorite(customerMock, productMock);
         fail();
       } catch (error) {
         expect(error).toEqual(new Error('UnexpectedError'));

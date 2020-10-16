@@ -3,7 +3,6 @@ import { Request } from '@src/util/request';
 import { IProduct } from '@src/services/integration/interfaces/product';
 import logger from '@src/config/logger';
 import Cache from '@src/config/cache';
-import { isRegExp } from 'util';
 
 export class ProductIntegration implements IProduct {
   protected key = 'produtct.';
