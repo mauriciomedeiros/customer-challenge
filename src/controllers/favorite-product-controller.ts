@@ -31,9 +31,6 @@ export class FavoriteProductController {
   public static async add(req: Request, res: Response): Promise<void> {
     try {
       const product = await productService.getProductById(req.body.idProduct);
-      if(!product) {
-        res.status(404).send({code: 404, message: 'product not found'});
-      }
 
       const customer = await customerRepository.findById(req.params.id);
       if(!customer) {
@@ -46,6 +43,9 @@ export class FavoriteProductController {
       logger.error('Error to add favorite products to customer', error);
       if(error.message === 'productAlreadyFavorited') {
         res.status(400).send({ code: 400, message: 'customer already has this favorite product' });
+      }
+      if(error.message === 'productNotFund') {
+        res.status(404).send({code: 404, message: 'product not found'});
       }
       res.status(500).send({ code: 500, message: 'oops something went wrong please try again' });
     }
