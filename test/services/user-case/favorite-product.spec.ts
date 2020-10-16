@@ -35,7 +35,6 @@ describe('Favorite Product Service', () => {
         "name": "Jose",
         "email": "jose@medeiros.com",
       }
-      console.log(customer);
       try {
         expect(service.productAlreadyFavorited(customer, 'ddeb989e-53c4-e68b-aa93-6e43afddb797')).toBeUndefined();
       } catch (error) {
@@ -83,6 +82,79 @@ describe('Favorite Product Service', () => {
         expect(customera.favoriteProducts?.length).toEqual(0);
       } catch (error) {
         fail();
+      }
+    });
+
+    it('Should return Error - error removing your favorite product ', async () => {
+      const customerRepository = new CustomerRepository();
+      const service = new FavoriteProductService(customerRepository);
+      const productMock:Product = oneProductMock
+      const customerMock:Customer = {
+        "_id": "5f83c2f81d4960669d02b9cd",
+        "favoriteProducts": [productMock],
+        "name": "Jose",
+        "email": "jose@medeiros.com",
+      };
+      const mockContactRepository = jest.spyOn(customerRepository, 'updateFavoriteProducts');
+      mockContactRepository.mockImplementation(() => new Promise((resolve, reject) => {
+        reject();
+      }));
+      try {
+        const products = await service.removeFavorite(customerMock, productMock.id);
+        fail();
+      } catch (error) {
+        expect(error).toEqual(new Error('UnexpectedError'));
+      }
+    });
+  });
+
+  describe('Add favorite product', () => {
+    it('Should return Success - product favorited with sucess', async () => {
+      const customerRepository = new CustomerRepository();
+      const service = new FavoriteProductService(customerRepository);
+      const productMock:Product = oneProductMock
+      const customerMock:Customer = {
+        "_id": "5f83c2f81d4960669d02b9cd",
+        "favoriteProducts": [],
+        "name": "Jose",
+        "email": "jose@medeiros.com",
+      };
+      const mockContactRepository = jest.spyOn(customerRepository, 'updateFavoriteProducts');
+      mockContactRepository.mockImplementation(() => new Promise((resolve, reject) => {
+        resolve({
+          "_id": "5f83c2f81d4960669d02b9cd",
+          "favoriteProducts": [productMock],
+          "name": "Jose",
+          "email": "jose@medeiros.com",
+        });
+      }));
+      try {
+        const products = await service.addFavorite(customerMock, productMock);
+        expect(products.length).toEqual(1)
+      } catch (error) {
+        fail();
+      }
+    });
+
+    it('Should return Error - error saving your favorite product ', async () => {
+      const customerRepository = new CustomerRepository();
+      const service = new FavoriteProductService(customerRepository);
+      const productMock:Product = oneProductMock
+      const customerMock:Customer = {
+        "_id": "5f83c2f81d4960669d02b9cd",
+        "favoriteProducts": [],
+        "name": "Jose",
+        "email": "jose@medeiros.com",
+      };
+      const mockContactRepository = jest.spyOn(customerRepository, 'updateFavoriteProducts');
+      mockContactRepository.mockImplementation(() => new Promise((resolve, reject) => {
+        reject();
+      }));
+      try {
+        const products = await service.addFavorite(customerMock, productMock);
+        fail();
+      } catch (error) {
+        expect(error).toEqual(new Error('UnexpectedError'));
       }
     });
     
