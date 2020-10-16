@@ -1,6 +1,6 @@
-import logger from "@src/config/logger";
-import { User } from "@src/entities/user";
-import { IUser } from "@src/repositories/interfaces/user";
+import logger from '@src/config/logger';
+import { User } from '@src/entities/user';
+import { IUser } from '@src/repositories/interfaces/user';
 
 export class UserRepository implements IUser {
   public async save(user: User): Promise<User> {
@@ -16,7 +16,7 @@ export class UserRepository implements IUser {
 
   public async findByEmail(email: string): Promise<User> {
     try {
-      const user = await User.findOne({email: email});
+      const user = await User.findOne({ email: email });
       return user as User;
     } catch (error) {
       logger.error(`Error to find user by email in database`, error);

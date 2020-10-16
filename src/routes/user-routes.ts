@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { UserController } from "@src/controllers/user-controller";
+import { UserController } from '@src/controllers/user-controller';
 
 export class UserRoutes {
   public static routes(routes: Router): void {

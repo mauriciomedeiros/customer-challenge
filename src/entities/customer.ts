@@ -1,14 +1,14 @@
-import mongoose, { Document,  Model} from "mongoose";
-import { Product } from "./product";
+import mongoose, { Document, Model } from 'mongoose';
+import { Product } from './product';
 
 export interface Customer {
-  _id?: string,
-  name: string,
-  email: string,
-  favoriteProducts?: Array<Product>
+  _id?: string;
+  name: string;
+  email: string;
+  favoriteProducts?: Array<Product>;
 }
 
-interface CustomerModel extends Omit<Customer, '_id'>, Document { }
+interface CustomerModel extends Omit<Customer, '_id'>, Document {}
 
 const schema = new mongoose.Schema(
   {
@@ -18,12 +18,12 @@ const schema = new mongoose.Schema(
       required: true,
       unique: [true, 'Email must be unique'],
     },
-    favoriteProducts: {type: Array}
+    favoriteProducts: { type: Array },
   },
   {
     timestamps: {
       createdAt: 'createdAt',
-      updatedAt: 'updatedAt'
+      updatedAt: 'updatedAt',
     },
     toJSON: {
       transform: (_, ret): void => {
@@ -35,4 +35,7 @@ const schema = new mongoose.Schema(
   }
 );
 
-export const Customer: Model<CustomerModel> = mongoose.model('Customer', schema);
+export const Customer: Model<CustomerModel> = mongoose.model(
+  'Customer',
+  schema
+);

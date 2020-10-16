@@ -1,10 +1,10 @@
-import { Request, Response } from "@src/util/request";
-import { ProductIntegration } from "@src/services/integration/product-integration";
-import cache from "@src/config/cache";
+import { Request, Response } from '@src/util/request';
+import { ProductIntegration } from '@src/services/integration/product-integration';
+import cache from '@src/config/cache';
 
 describe('Product Integration Service', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
+    jest.clearAllMocks();
   });
 
   describe('Get product by ID', () => {
@@ -15,26 +15,35 @@ describe('Product Integration Service', () => {
 
       const resultRequestMock = {
         data: {
-          "price": 704.8,
-          "image": "http://challenge-api.luizalabs.com/images/ddeb989e-53c4-e68b-aa93-6e43afddb797.jpg",
-          "brand": "burigotto",
-          "id": "ddeb989e-53c4-e68b-aa93-6e43afddb797",
-          "title": "Cadeira para Auto Burigotto Matrix p/ Crianças"
-        }
-      } as Response
+          price: 704.8,
+          image:
+            'http://challenge-api.luizalabs.com/images/ddeb989e-53c4-e68b-aa93-6e43afddb797.jpg',
+          brand: 'burigotto',
+          id: 'ddeb989e-53c4-e68b-aa93-6e43afddb797',
+          title: 'Cadeira para Auto Burigotto Matrix p/ Crianças',
+        },
+      } as Response;
 
       const mockRequest = jest.spyOn(requestMock, 'get');
-      mockRequest.mockImplementation(() => new Promise((resolve, reject) => {
-        resolve(resultRequestMock);
-      }));
+      mockRequest.mockImplementation(
+        () =>
+          new Promise((resolve, reject) => {
+            resolve(resultRequestMock);
+          })
+      );
 
       const mockCache = jest.spyOn(cacheMock, 'get');
-      mockCache.mockImplementation(() => new Promise((resolve, reject) => {
-        resolve(undefined);
-      }));
+      mockCache.mockImplementation(
+        () =>
+          new Promise((resolve, reject) => {
+            resolve(undefined);
+          })
+      );
 
       try {
-        const product = await service.getProductById('ddeb989e-53c4-e68b-aa93-6e43afddb797');
+        const product = await service.getProductById(
+          'ddeb989e-53c4-e68b-aa93-6e43afddb797'
+        );
         expect(product).toBe(resultRequestMock.data);
       } catch (error) {
         fail();
@@ -47,21 +56,26 @@ describe('Product Integration Service', () => {
       const service = new ProductIntegration(requestMock, cacheMock);
 
       const resultCacheMock = {
-        "price": 704.8,
-        "image": "http://challenge-api.luizalabs.com/images/ddeb989e-53c4-e68b-aa93-6e43afddb797.jpg",
-        "brand": "burigotto",
-        "id": "ddeb989e-53c4-e68b-aa93-6e43afddb797",
-        "title": "Cadeira para Auto Burigotto Matrix p/ Crianças"
-      }
-
+        price: 704.8,
+        image:
+          'http://challenge-api.luizalabs.com/images/ddeb989e-53c4-e68b-aa93-6e43afddb797.jpg',
+        brand: 'burigotto',
+        id: 'ddeb989e-53c4-e68b-aa93-6e43afddb797',
+        title: 'Cadeira para Auto Burigotto Matrix p/ Crianças',
+      };
 
       const mockCache = jest.spyOn(cacheMock, 'get');
-      mockCache.mockImplementation(() => new Promise((resolve, reject) => {
-        resolve(resultCacheMock);
-      }));
+      mockCache.mockImplementation(
+        () =>
+          new Promise((resolve, reject) => {
+            resolve(resultCacheMock);
+          })
+      );
 
       try {
-        const product = await service.getProductById('ddeb989e-53c4-e68b-aa93-6e43afddb797');
+        const product = await service.getProductById(
+          'ddeb989e-53c4-e68b-aa93-6e43afddb797'
+        );
         expect(product).toBe(resultCacheMock);
       } catch (error) {
         fail();
@@ -76,19 +90,25 @@ describe('Product Integration Service', () => {
       const resultRequestErrorMock = {
         isAxiosError: true,
         response: {
-          status: 404
-        }
-      }
+          status: 404,
+        },
+      };
 
       const mockRequest = jest.spyOn(requestMock, 'get');
-      mockRequest.mockImplementation(() => new Promise((resolve, reject) => {
-        reject(resultRequestErrorMock);
-      }));
+      mockRequest.mockImplementation(
+        () =>
+          new Promise((resolve, reject) => {
+            reject(resultRequestErrorMock);
+          })
+      );
 
       const mockCache = jest.spyOn(cacheMock, 'get');
-      mockCache.mockImplementation(() => new Promise((resolve, reject) => {
-        resolve(undefined);
-      }));
+      mockCache.mockImplementation(
+        () =>
+          new Promise((resolve, reject) => {
+            resolve(undefined);
+          })
+      );
 
       try {
         await service.getProductById('idProductFake');
@@ -106,19 +126,25 @@ describe('Product Integration Service', () => {
       const resultRequestErrorMock = {
         isAxiosError: true,
         response: {
-          status: 500
-        }
-      }
+          status: 500,
+        },
+      };
 
       const mockRequest = jest.spyOn(requestMock, 'get');
-      mockRequest.mockImplementation(() => new Promise((resolve, reject) => {
-        reject(resultRequestErrorMock);
-      }));
+      mockRequest.mockImplementation(
+        () =>
+          new Promise((resolve, reject) => {
+            reject(resultRequestErrorMock);
+          })
+      );
 
       const mockCache = jest.spyOn(cacheMock, 'get');
-      mockCache.mockImplementation(() => new Promise((resolve, reject) => {
-        resolve(undefined);
-      }));
+      mockCache.mockImplementation(
+        () =>
+          new Promise((resolve, reject) => {
+            resolve(undefined);
+          })
+      );
 
       try {
         await service.getProductById('idProductFake');
@@ -127,6 +153,5 @@ describe('Product Integration Service', () => {
         expect(error).toEqual(new Error('UnexpectedError'));
       }
     });
-    
   });
 });

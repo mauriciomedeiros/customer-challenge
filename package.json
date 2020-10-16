@@ -10,7 +10,9 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "lint": "eslint ./src ./test --ext .ts",
-    "lint:fix": "eslint ./src ./test --ext .ts --fix"
+    "lint:fix": "eslint ./src ./test --ext .ts --fix",
+    "style:check": "prettier --check 'src/**/*.ts' 'test/**/*.ts'",
+    "style:fix": "prettier --write 'src/**/*.ts' 'test/**/*.ts'"
   },
   "repository": {
     "type": "git",
@@ -49,6 +51,7 @@
     "jsonwebtoken": "^8.5.1",
     "module-alias": "^2.2.2",
     "mongoose": "^5.10.9",
+    "prettier": "^2.1.2",
     "tedis": "^0.1.12",
     "tslog": "^2.9.0"
   }

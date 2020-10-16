@@ -1,12 +1,12 @@
-import mongoose, { Document,  Model} from "mongoose";
+import mongoose, { Document, Model } from 'mongoose';
 
 export interface User {
-  _id?: string,
-  email: string,
-  password: string
+  _id?: string;
+  email: string;
+  password: string;
 }
 
-interface UserModel extends Omit<User, '_id'>, Document { }
+interface UserModel extends Omit<User, '_id'>, Document {}
 
 const schema = new mongoose.Schema(
   {
@@ -20,7 +20,7 @@ const schema = new mongoose.Schema(
   {
     timestamps: {
       createdAt: 'createdAt',
-      updatedAt: 'updatedAt'
+      updatedAt: 'updatedAt',
     },
     toJSON: {
       transform: (_, ret): void => {

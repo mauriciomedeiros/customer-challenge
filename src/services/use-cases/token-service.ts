@@ -6,13 +6,13 @@ export class TokenService {
     const cryptToken = process.env.TOKEN_CRYPT as string;
     const options = {
       expiresIn: process.env.EXPIRES_IN,
-    }
+    };
 
     return jwt.sign(payload, cryptToken, options);
   }
 
   public static decode(token: string): User {
     const cryptToken = process.env.TOKEN_CRYPT as string;
-    return jwt.verify(token, cryptToken) as User
+    return jwt.verify(token, cryptToken) as User;
   }
 }
