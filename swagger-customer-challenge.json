@@ -1,0 +1,795 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.3.0",
+    "title": "Customer Challenge",
+    "description": "Customer Challenge",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000/",
+      "description": "Local server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Users"
+    },
+    {
+      "name": "Customers"
+    },
+    {
+      "name": "Favorite Products"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserCreated"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "email already registered, email must be unique",
+                  "code": "400"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "oops something went wrong please try again",
+                  "code": "500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "User not found",
+                  "code": "400"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "oops something went wrong please try again",
+                  "code": "500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customer/{id}": {
+      "get": {
+        "description": "",
+        "tags": [
+          "Customers"
+        ],
+        "parameters": [
+          {
+            "name": "x-token",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/token"
+            },
+            "required": true
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Customer"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "client not found",
+                  "code": "404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "oops something went wrong please try again",
+                  "code": "500"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "tags": [
+          "Customers"
+        ],
+        "parameters": [
+          {
+            "name": "x-token",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/token"
+            },
+            "required": true
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "oops something went wrong please try again",
+                  "code": "500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/custome": {
+      "post": {
+        "description": "",
+        "tags": [
+          "Customers"
+        ],
+        "parameters": [
+          {
+            "name": "x-token",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/token"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "$ref": "#/components/schemas/name"
+                  },
+                  "email": {
+                    "$ref": "#/components/schemas/email"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerCreated"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "email already registered, email must be unique",
+                  "code": "400"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "oops something went wrong please try again",
+                  "code": "500"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "tags": [
+          "Customers"
+        ],
+        "parameters": [
+          {
+            "name": "x-token",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/token"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "$ref": "#/components/schemas/name"
+                  },
+                  "email": {
+                    "$ref": "#/components/schemas/email"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerCreated"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "email already registered, email must be unique",
+                  "code": "400"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "oops something went wrong please try again",
+                  "code": "500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customers/{id}/favorite/product": {
+      "post": {
+        "tags": [
+          "Favorite Products"
+        ],
+        "parameters": [
+          {
+            "name": "x-token",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/token"
+            },
+            "required": true
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "customer already has this favorite product",
+                  "code": "400"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "product not found",
+                  "code": "404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "oops something went wrong please try again",
+                  "code": "500"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Favorite Products"
+        ],
+        "parameters": [
+          {
+            "name": "x-token",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/token"
+            },
+            "required": true
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FavoriteProducts"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "client not found",
+                  "code": "404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "oops something went wrong please try again",
+                  "code": "500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customers/{id}/favorite/product{idProduct}": {
+      "delete": {
+        "description": "",
+        "tags": [
+          "Favorite Products"
+        ],
+        "parameters": [
+          {
+            "name": "x-token",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/token"
+            },
+            "required": true
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          },
+          {
+            "name": "idProduct",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "no content"
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "oops something went wrong please try again",
+                  "code": "500"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "id": {
+        "type": "string",
+        "example": "5f88f0aa85a65d326ca0f41f"
+      },
+      "name": {
+        "type": "string",
+        "example": "Name user"
+      },
+      "email": {
+        "type": "string",
+        "example": "name@mail.com"
+      },
+      "password": {
+        "type": "string",
+        "example": "12345"
+      },
+      "createdAt": {
+        "type": "string",
+        "example": "2020-10-16T01:00:26.833Z"
+      },
+      "updatedAt": {
+        "type": "string",
+        "example": "2020-10-16T01:00:26.833Z"
+      },
+      "token": {
+        "type": "string",
+        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hdXJpY2lvQG1lZGVpcm9zLmNvbSIsInBhc3N3b3JkIjoiMTIzNDUiLCJjcmVhdGVkQXQiOiIyMDIwLTEwLTE2VDAxOjAwOjA5LjAxN1oiLCJ1cGRhdGVkQXQiOiIyMDIwLTEwLTE2VDAxOjAwOjA5LjAxN1oiLCJpZCI6IjVmODhmMDk5ODVhNjVkMzI2Y2EwZjQxZCIsImlhdCI6MTYwMjg1NDA5NCwiZXhwIjoxNjAyODU0Njk0fQ.NyzHgbVfsUA4q__vfFed2zQl1CH4VUQZHcLUcSC4PnM"
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "code": {
+            "type": "number"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "$ref": "#/components/schemas/email"
+          },
+          "password": {
+            "$ref": "#/components/schemas/password"
+          }
+        }
+      },
+      "UserCreated": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "$ref": "#/components/schemas/email"
+          },
+          "password": {
+            "$ref": "#/components/schemas/password"
+          },
+          "id": {
+            "$ref": "#/components/schemas/id"
+          },
+          "createdAt": {
+            "$ref": "#/components/schemas/createdAt"
+          },
+          "updatedAt": {
+            "$ref": "#/components/schemas/updatedAt"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "$ref": "#/components/schemas/email"
+          },
+          "password": {
+            "$ref": "#/components/schemas/password"
+          },
+          "id": {
+            "$ref": "#/components/schemas/id"
+          },
+          "token": {
+            "$ref": "#/components/schemas/token"
+          }
+        }
+      },
+      "Product": {
+        "type": "object",
+        "properties": {
+          "price": {
+            "type": "number"
+          },
+          "image": {
+            "type": "string"
+          },
+          "brand": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "reviewScore": {
+            "type": "number"
+          }
+        }
+      },
+      "ProductBody": {
+        "type": "object",
+        "properties": {
+          "idProduct": {
+            "type": "string"
+          }
+        }
+      },
+      "FavoriteProducts": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Product"
+        }
+      },
+      "Customer": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "$ref": "#/components/schemas/name"
+          },
+          "email": {
+            "$ref": "#/components/schemas/email"
+          },
+          "password": {
+            "$ref": "#/components/schemas/password"
+          },
+          "id": {
+            "$ref": "#/components/schemas/id"
+          },
+          "createdAt": {
+            "$ref": "#/components/schemas/createdAt"
+          },
+          "updatedAt": {
+            "$ref": "#/components/schemas/updatedAt"
+          },
+          "favoriteProducts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Product"
+            }
+          }
+        }
+      },
+      "CustomerCreated": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "$ref": "#/components/schemas/name"
+          },
+          "email": {
+            "$ref": "#/components/schemas/email"
+          },
+          "password": {
+            "$ref": "#/components/schemas/password"
+          },
+          "id": {
+            "$ref": "#/components/schemas/id"
+          },
+          "createdAt": {
+            "$ref": "#/components/schemas/createdAt"
+          },
+          "updatedAt": {
+            "$ref": "#/components/schemas/updatedAt"
+          },
+          "favoriteProducts": {
+            "type": "array",
+            "items": {
+              "default": []
+            }
+          }
+        }
+      }
+    }
+  }
+}

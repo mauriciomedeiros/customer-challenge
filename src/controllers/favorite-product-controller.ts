@@ -24,7 +24,7 @@ export class FavoriteProductController {
         res.status(404).send({ code: 404, message: 'client not found' });
       }
 
-      res.status(201).send(customer.favoriteProducts);
+      res.status(200).send(customer.favoriteProducts);
     } catch (error) {
       logger.error('Error to find favorite products to customer', error);
       res
