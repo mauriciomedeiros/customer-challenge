@@ -1,7 +1,5 @@
-import { json } from 'body-parser';
 import {Tedis} from 'tedis';
 import logger from '@src/config/logger';
-import { Product } from '@src/entities/product';
 
 const data = {
   port: process.env.REDIS_PORT,
