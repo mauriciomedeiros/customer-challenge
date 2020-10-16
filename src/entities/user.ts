@@ -18,6 +18,10 @@ const schema = new mongoose.Schema(
     password: { type: String, required: true },
   },
   {
+    timestamps: {
+      createdAt: 'createdAt',
+      updatedAt: 'updatedAt'
+    },
     toJSON: {
       transform: (_, ret): void => {
         ret.id = ret._id;

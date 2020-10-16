@@ -21,6 +21,10 @@ const schema = new mongoose.Schema(
     favoriteProducts: {type: Array}
   },
   {
+    timestamps: {
+      createdAt: 'createdAt',
+      updatedAt: 'updatedAt'
+    },
     toJSON: {
       transform: (_, ret): void => {
         ret.id = ret._id;

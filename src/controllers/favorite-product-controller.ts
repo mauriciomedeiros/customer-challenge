@@ -53,7 +53,7 @@ export class FavoriteProductController {
 
   public static async remove(req: Request, res: Response): Promise<void> {
     try {
-      const customer = await await customerRepository.findById(req.params.id);
+      const customer = await customerRepository.findById(req.params.id);
       if(!customer) {
         res.status(404).send({code: 404, message: 'customer not found'})
       }
@@ -64,6 +64,9 @@ export class FavoriteProductController {
       await favoriteProductService.removeFavorite(customer as Customer, idProduct)
       res.status(204).send();
     } catch (error) {
+      if(error.message === 'productNotFavoritedToCustomer') {
+        res.status(404).send({ code: 404, message: `customer doesn't have that favorite product` });
+      }
       logger.error('Error to remove favorite products to customer', error);
       res.status(500).send({ code: 500, message: 'oops something went wrong please try again' });
     }
